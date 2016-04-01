@@ -4,7 +4,7 @@ import UIKit
 
 public protocol AURUnlockSliderDelegate: class {
     
-    func snappingSliderDidUnlock(slider:AURUnlockSlider)
+    func unlockSliderDidUnlock(slider:AURUnlockSlider)
 }
 
 public class AURUnlockSlider: UIView {
@@ -119,7 +119,7 @@ public class AURUnlockSlider: UIView {
             case .Cancelled:
                 var point: CGPoint?
                 if sliderView.frame.origin.x > sliderContainer.center.x {
-                    delegate?.snappingSliderDidUnlock(self)
+                    delegate?.unlockSliderDidUnlock(self)
                     point = CGPointMake(bounds.size.width * 1.5, bounds.size.height * 0.5)
                 } else {
                     point = CGPointMake(bounds.size.width * 0.5, bounds.size.height * 0.5)
