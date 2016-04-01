@@ -1,0 +1,25 @@
+{
+  "name": "AURUnlockSlider",
+  "version": "0.1.0",
+  "summary": "A short description of AURUnlockSlider.",
+  "description": "",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/AURUnlockSlider",
+  "license": "MIT",
+  "authors": {
+    "aminaura": "aura.otsuka@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/AURUnlockSlider.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "AURUnlockSlider": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}

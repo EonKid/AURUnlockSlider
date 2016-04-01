@@ -1,0 +1,14 @@
+PODS:
+  - AURUnlockSlider (0.1.0)
+
+DEPENDENCIES:
+  - AURUnlockSlider (from `../`)
+
+EXTERNAL SOURCES:
+  AURUnlockSlider:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AURUnlockSlider: e7522bec0571938b8cceccc8faaf8b5ae2f18454
+
+COCOAPODS: 0.39.0

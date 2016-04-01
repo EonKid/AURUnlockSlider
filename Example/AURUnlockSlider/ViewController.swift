@@ -7,18 +7,35 @@
 //
 
 import UIKit
+import AURUnlockSlider
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, AURUnlockSliderDelegate {
 
+    private let snappingSlider:AURUnlockSlider = AURUnlockSlider(frame: CGRectMake(0.0, 0.0, 10.0, 10.0))
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let backImage = UIImageView()
+        backImage.frame = self.view.frame
+        backImage.image = UIImage(named: "background.jpg")
+        self.view.addSubview(backImage)
+        
+        snappingSlider.delegate = self
+        snappingSlider.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width * 0.8, 70.0)
+        snappingSlider.center = CGPointMake(self.view.bounds.size.width * 0.5, self.view.bounds.size.height * 0.5)
+        
+        snappingSlider.sliderText = "> Slide to Unlock"
+        snappingSlider.sliderTextFont = UIFont(name: "HelveticaNeue-Thin", size: 20.0)!
+        snappingSlider.sliderBackgroundColor = UIColor(red: 231/255, green: 232/255, blue: 226/255, alpha: 0.5)
+        self.view.addSubview(snappingSlider)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func snappingSliderDidUnlock(snapSwitch: AURUnlockSlider) {
+        print("Unlock")
     }
-
+    
 }
+
 
