@@ -5,11 +5,13 @@
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/AURCherryBlossomView.svg?style=flat)](http://cocoapods.org/pods/AURUnlockSlider)
 
+<img src="Example/demo.gif" width="200">
+
 ## Usage
 
 ### Import
 ```swift
-import "AURUnlockSlider"
+import AURUnlockSlider
 ```
 
 ### Init View and add the subView
