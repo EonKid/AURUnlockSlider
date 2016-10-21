@@ -11,7 +11,7 @@ import AURUnlockSlider
 
 class ViewController: UIViewController, AURUnlockSliderDelegate {
 
-    private let unlockSlider:AURUnlockSlider = AURUnlockSlider(frame: CGRectMake(0.0, 0.0, 10.0, 10.0))
+    fileprivate let unlockSlider:AURUnlockSlider = AURUnlockSlider(frame: CGRect(x: 0, y: 0, width: 200, height: 70))
     
     override func viewDidLoad() {
         
@@ -23,8 +23,8 @@ class ViewController: UIViewController, AURUnlockSliderDelegate {
         self.view.addSubview(backImage)
         
         unlockSlider.delegate = self
-        unlockSlider.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width * 0.8, 80.0)
-        unlockSlider.center = CGPointMake(self.view.bounds.size.width * 0.5, self.view.bounds.size.height * 0.5)
+        unlockSlider.frame = CGRect(x: 0.0, y: 0.0, width: self.view.bounds.size.width * 0.8, height: 80.0)
+        unlockSlider.center = CGPoint(x: self.view.bounds.size.width * 0.5, y: self.view.bounds.size.height * 0.5)
         
         unlockSlider.sliderText = "> Slide to Unlock"
         unlockSlider.sliderTextFont = UIFont(name: "HelveticaNeue-Thin", size: 20.0)!
@@ -32,7 +32,7 @@ class ViewController: UIViewController, AURUnlockSliderDelegate {
         self.view.addSubview(unlockSlider)
     }
     
-    func unlockSliderDidUnlock(snapSwitch: AURUnlockSlider) {
+    func unlockSliderDidUnlock(_ snapSwitch: AURUnlockSlider) {
         print("Unlock")
     }
     
