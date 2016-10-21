@@ -7,6 +7,12 @@
 
 <img src="Example/demo.gif" width="200">
 
+## Requirements
+
+- iOS 9.0+
+- Xcode 8.0+
+- Swift 3.0+
+
 ## Usage
 
 ### Import
@@ -22,7 +28,7 @@ let unlockSlider = AURUnlockSlider(frame: CGRectMake(0.0, 0.0, self.view.bounds.
 self.view.addSubview(unlockSlider)
 ```
 
-### conform to the delegate 
+### conform to the delegate
 
 ```swift
 unlockSlider.delegate = self

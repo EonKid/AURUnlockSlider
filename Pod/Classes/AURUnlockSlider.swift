@@ -4,30 +4,30 @@ import UIKit
 
 public protocol AURUnlockSliderDelegate: class {
     
-    func unlockSliderDidUnlock(slider:AURUnlockSlider)
+    func unlockSliderDidUnlock(_ slider:AURUnlockSlider)
 }
 
-public class AURUnlockSlider: UIView {
+open class AURUnlockSlider: UIView {
     
     final public weak var delegate:AURUnlockSliderDelegate?
     
     final public var sliderText = "Slide to Unlock"
-    final public var sliderTextColor:UIColor = UIColor.lightGrayColor()
+    final public var sliderTextColor:UIColor = UIColor.lightGray
     final public var sliderTextFont:UIFont = UIFont(name: "HelveticaNeue-Thin", size: 15.0)!
     final public var sliderCornerRadius:CGFloat = 3.0
-    final public var sliderColor = UIColor.clearColor()
-    final public var sliderBackgroundColor:UIColor = UIColor.clearColor()
+    final public var sliderColor = UIColor.clear
+    final public var sliderBackgroundColor:UIColor = UIColor.clear
     
-    final private let sliderContainer = UIView(frame: CGRectZero)
-    final private let sliderView = UIView(frame: CGRectZero)
-    final private let sliderViewLabel = UILabel(frame: CGRectZero)
-    final private var isCurrentDraggingSlider = false
-    final private var lastDelegateFireOffset = CGFloat(0)
-    final private var touchesBeganPoint = CGPointZero
-    final private var valueChangingTimer:NSTimer?
-    final private let sliderPanGestureRecogniser = UIPanGestureRecognizer()
-    final private let dynamicButtonAnimator = UIDynamicAnimator()
-    final private var snappingBehavior:SliderSnappingBehavior?
+    final fileprivate let sliderContainer = UIView(frame: CGRect.zero)
+    final fileprivate let sliderView = UIView(frame: CGRect.zero)
+    final fileprivate let sliderViewLabel = UILabel(frame: CGRect.zero)
+    final fileprivate var isCurrentDraggingSlider = false
+    final fileprivate var lastDelegateFireOffset = CGFloat(0)
+    final fileprivate var touchesBeganPoint = CGPoint.zero
+    final fileprivate var valueChangingTimer:Timer?
+    final fileprivate let sliderPanGestureRecogniser = UIPanGestureRecognizer()
+    final fileprivate let dynamicButtonAnimator = UIDynamicAnimator()
+    final fileprivate var snappingBehavior:SliderSnappingBehavior?
     
     
     public override init(frame:CGRect) {
@@ -46,39 +46,39 @@ public class AURUnlockSlider: UIView {
         setNeedsLayout()
     }
     
-    private func setupView() {
+    fileprivate func setupView() {
         
         sliderContainer.backgroundColor = backgroundColor
         
         sliderContainer.addSubview(sliderView)
         
-        sliderViewLabel.userInteractionEnabled = false
-        sliderViewLabel.textAlignment = NSTextAlignment.Center
+        sliderViewLabel.isUserInteractionEnabled = false
+        sliderViewLabel.textAlignment = NSTextAlignment.center
         sliderViewLabel.textColor = sliderTextColor
         sliderView.addSubview(sliderViewLabel)
         
         sliderPanGestureRecogniser.addTarget(self, action: NSSelectorFromString("handleGesture:"))
         sliderView.addGestureRecognizer(sliderPanGestureRecogniser)
         
-        sliderContainer.center = CGPointMake(bounds.size.width * 0.5, bounds.size.height * 0.5)
+        sliderContainer.center = CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
         addSubview(sliderContainer)
         clipsToBounds = true
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         
         super.layoutSubviews()
         
         sliderContainer.frame = frame
-        sliderContainer.center = CGPointMake(bounds.size.width * 0.5, bounds.size.height * 0.5)
+        sliderContainer.center = CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
         sliderContainer.backgroundColor = sliderBackgroundColor
         
-        sliderView.frame = CGRectMake(0.0, 0.0, bounds.size.width, bounds.size.height)
-        sliderView.center = CGPointMake(bounds.size.width * 0.5, bounds.size.height * 0.5)
+        sliderView.frame = CGRect(x: 0.0, y: 0.0, width: bounds.size.width, height: bounds.size.height)
+        sliderView.center = CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
         sliderView.backgroundColor = sliderColor
         
-        sliderViewLabel.frame = CGRectMake(0.0, 0.0, sliderView.bounds.size.width, sliderView.bounds.size.height)
-        sliderViewLabel.center = CGPointMake(sliderViewLabel.bounds.size.width * 0.5, sliderViewLabel.bounds.size.height * 0.5)
+        sliderViewLabel.frame = CGRect(x: 0.0, y: 0.0, width: sliderView.bounds.size.width, height: sliderView.bounds.size.height)
+        sliderViewLabel.center = CGPoint(x: sliderViewLabel.bounds.size.width * 0.5, y: sliderViewLabel.bounds.size.height * 0.5)
         sliderViewLabel.backgroundColor = sliderColor
         sliderViewLabel.font = sliderTextFont
         sliderViewLabel.text = sliderText
@@ -86,43 +86,43 @@ public class AURUnlockSlider: UIView {
         layer.cornerRadius = sliderCornerRadius
     }
     
-    final func handleGesture(sender: UIGestureRecognizer) {
+    final func handleGesture(_ sender: UIGestureRecognizer) {
         
         if sender as NSObject == sliderPanGestureRecogniser {
             
             switch sender.state {
                 
-            case .Began:
+            case .began:
                 isCurrentDraggingSlider = true
-                touchesBeganPoint = sliderPanGestureRecogniser.translationInView(sliderView)
+                touchesBeganPoint = sliderPanGestureRecogniser.translation(in: sliderView)
                 if dynamicButtonAnimator.behaviors.count != 0 {
                     dynamicButtonAnimator.removeBehavior(snappingBehavior!)
                 }
                 
                 lastDelegateFireOffset = ((touchesBeganPoint.x + touchesBeganPoint.x) * 0.40)
                 
-            case .Changed:
+            case .changed:
                 valueChangingTimer?.invalidate()
-                let translationInView = sliderPanGestureRecogniser.translationInView(sliderView)
+                let translationInView = sliderPanGestureRecogniser.translation(in: sliderView)
                 let translatedCenterX:CGFloat = (bounds.size.width * 0.5) + ((touchesBeganPoint.x + translationInView.x))
-                sliderView.center = CGPointMake(translatedCenterX, sliderView.center.y);
+                sliderView.center = CGPoint(x: translatedCenterX, y: sliderView.center.y);
                 lastDelegateFireOffset = translatedCenterX
                 
-            case .Ended:
+            case .ended:
                 
                 fallthrough
                 
-            case .Failed:
+            case .failed:
                 
                 fallthrough
                 
-            case .Cancelled:
+            case .cancelled:
                 var point: CGPoint?
                 if sliderView.frame.origin.x > sliderContainer.center.x {
                     delegate?.unlockSliderDidUnlock(self)
-                    point = CGPointMake(bounds.size.width * 1.5, bounds.size.height * 0.5)
+                    point = CGPoint(x: bounds.size.width * 1.5, y: bounds.size.height * 0.5)
                 } else {
-                    point = CGPointMake(bounds.size.width * 0.5, bounds.size.height * 0.5)
+                    point = CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
                 }
                 
                 snappingBehavior = SliderSnappingBehavior(item: sliderView, snapToPoint: point!)
@@ -132,7 +132,7 @@ public class AURUnlockSlider: UIView {
                 lastDelegateFireOffset = center.x
                 valueChangingTimer?.invalidate()
                 
-            case .Possible:
+            case .possible:
                 
                 print("possible")
             }
@@ -148,7 +148,7 @@ final class SliderSnappingBehavior: UIDynamicBehavior {
         let dynamicItemBehavior:UIDynamicItemBehavior  = UIDynamicItemBehavior(items: [item])
         dynamicItemBehavior.allowsRotation = false
         
-        let snapBehavior:UISnapBehavior = UISnapBehavior(item: item, snapToPoint: point)
+        let snapBehavior:UISnapBehavior = UISnapBehavior(item: item, snapTo: point)
         snapBehavior.damping = 1
         
         snappingPoint = point
