@@ -23,7 +23,7 @@ import AURUnlockSlider
 ### Init View and add the subView
 
 ```swift
-let unlockSlider = AURUnlockSlider(frame: CGRectMake(0.0, 0.0, self.view.bounds.size.width * 0.8, 70.0))
+let unlockSlider = AURUnlockSlider(frame: CGRect(x: 0, y: 0, width: 200, height: 70))
 
 self.view.addSubview(unlockSlider)
 ```
